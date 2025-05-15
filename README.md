@@ -1,20 +1,61 @@
-We would like you to create a basic Laravel API called “Laravel Tech Task Demo API”. The purpose of the API is to display, add, edit and delete tasks.
+# Laravel Tech Task Demo API
 
-Key criteria:
-A task is formed of a name (min 3, max 100 characters) and a description (min 10, max 5000 characters).
-Create an endpoint to view all tasks (no user restrictions).
-A secured URL is required to edit or delete a task. Provide the appropriate endpoints to do this when a task is created.
-No user accounts/ authentication is required.
-Should be a RESTful API with a base of: /api/tasks.
-Uses a NoSQL database (this is already setup).
-Appropriate Unit Tests.
-Uses Laravel Best Practices.
-Bonus Criteria:
-All requests should be logged in a log file via middleware.
-Implement Soft Deleting.
+A Laravel RESTful API for managing tasks. With MongoDB as the database.
 
-<!-- Respond to the email you received with a link to the fork of this repository with your solution in. Please include a .env file within your repository.
-The three commands which will be used to run your solution will be:
-composer install
-php artisan migrate
-php artisan serve -->
+## Features
+
+-   CRUD endpoints for tasks
+-   Validation: name (3-100 chars), description (10-5000 chars)
+-   Signed URLs for edit and delete actions
+-   No authentication required
+-   Uses MongoDB (NoSQL)
+-   Soft deletes for tasks
+-   All requests logged via middleware
+-   Feature tests for all endpoints
+
+## Endpoints
+
+-   `GET    /api/tasks` — List all tasks
+-   `POST   /api/tasks` — Create a new task
+-   `GET    /api/tasks/{id}` — Show a single task
+-   `PUT    /api/tasks/{id}` — Update a task (signed URL required)
+-   `DELETE /api/tasks/{id}` — Delete a task (signed URL required)
+
+## Setup
+
+1. Clone the repository
+2. Install dependencies:
+    ```sh
+    composer install
+    ```
+3. Set your MongoDB connection vars:
+    ```env
+    DB_CONNECTION=mongodb
+    DB_DATABASE=task_api
+    DB_URI=mongodb://localhost:27017
+    ```
+4. Run migrations:
+    ```sh
+    php artisan migrate
+    ```
+5. Start the server:
+    ```sh
+    php artisan serve
+    ```
+
+## Testing
+
+-   Feature tests are in `tests/Feature/EndpointTest.php`.
+-   To run tests:
+    ```sh
+    php artisan test --testsuite=Feature
+    ```
+-   Had issues with mongodb useRefresh on testing db so used a separate MongoDB database (see `.env.testing` or `phpunit.xml`).
+
+## Bonus Points!
+
+-   No user authentication is required.
+-   All requests are logged via middleware.
+-   Soft deletes are enabled for tasks.
+
+---
